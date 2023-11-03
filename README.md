@@ -37,6 +37,5 @@ Uma rede social em nível básico com visual elegante e modelado para servir uma
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 ![Instagram post - 1(2)](https://github.com/luczsz/MeuChatSocial/assets/99900073/f1d3375d-7c46-4d2c-afdd-25aeb3986be8)
 
