@@ -14,7 +14,14 @@ import ImageProfile from '../pages/auth/ImageProfile';
 export default function AuthRoutes() {
  return (
         <AuthStack.Navigator>
-            <AuthStack.Screen name='Splash' component={Splash} />
+            <AuthStack.Screen 
+              name='Splash' 
+              component={Splash}
+              options={{
+                headerShown: false,
+              }} 
+            />
+
             <AuthStack.Screen name='Login' component={SignIn} />
             <AuthStack.Screen name='Cadastro' component={SignUp} />
             <AuthStack.Screen name='Profile' component={ImageProfile} />
