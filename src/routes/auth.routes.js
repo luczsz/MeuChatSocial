@@ -22,7 +22,14 @@ export default function AuthRoutes() {
               }} 
             />
 
-            <AuthStack.Screen name='Login' component={SignIn} />
+            <AuthStack.Screen 
+              name='Login' 
+              component={SignIn} 
+              options={{
+                headerShown: false,
+              }}
+            />
+            
             <AuthStack.Screen name='Cadastro' component={SignUp} />
             <AuthStack.Screen name='Profile' component={ImageProfile} />
         </AuthStack.Navigator>
