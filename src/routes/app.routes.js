@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const AppStack = createNativeStackNavigator();
 
 import Home from "../pages/app/Home";
+import Community from "../pages/app/Community";
 
 export default function AppRoutes(){
     return(
@@ -11,6 +12,14 @@ export default function AppRoutes(){
             <AppStack.Screen
                 name="Inicio"
                 component={Home}
+                options={{
+                    headerShown: false,
+                }}
+            />
+           
+            <AppStack.Screen
+                name="Comunidade"
+                component={Community}
                 options={{
                     headerShown: false,
                 }}
