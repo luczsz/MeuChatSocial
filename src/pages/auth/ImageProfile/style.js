@@ -17,6 +17,17 @@ export const styles = StyleSheet.create({
         gap: 10,
 
     },
+    header:{
+        marginTop: 32,
+        paddingLeft: 14,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+        height: 60,
+        width: '100%',
+        borderWidth: 2,
+        borderBottomColor: theme.colors.three,
+    },
     button:{
         height: '20%',
         width: '100%',
@@ -24,12 +35,13 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     logo:{
-        width: 200,
-        height: 200,
+        width: 300,
+        height: 300,
+        borderRadius: 152,
     },
     title:{
         fontSize: 40,
-        fontFamily: theme.fonts.bold,
+        fontWeight: 'bold',
         color: theme.colors.white,
     },
     next:{
@@ -41,8 +53,8 @@ export const styles = StyleSheet.create({
         borderRadius: 12,
     },
     nextText:{
-        fontSize: 22,
-        fontFamily: theme.fonts.bold,
+        fontSize: 20,
+        fontWeight: 'bold',
         color: theme.colors.white,
     }
 })

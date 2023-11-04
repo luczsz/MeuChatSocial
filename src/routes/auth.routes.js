@@ -40,7 +40,14 @@ export default function AuthRoutes() {
               }} 
             />
 
-            <AuthStack.Screen name='Profile' component={ImageProfile} />
+            <AuthStack.Screen 
+              name='Profile' 
+              component={ImageProfile}
+              options={{
+                headerShown: false,
+              }} 
+            />
+
         </AuthStack.Navigator>
   );
 }

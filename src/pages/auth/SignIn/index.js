@@ -34,9 +34,9 @@ export default function SignIn() {
             </TouchableOpacity>
             
             <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }} >
-                <Text style={{ color: theme.colors.white }} >Ainda não tem uma conta?</Text>
+                <Text style={{ color: theme.colors.white, fontFamily: theme.fonts.regular }} >Ainda não tem uma conta?</Text>
               <TouchableOpacity activeOpacity={0.5} onPress={ () => navigation.navigate('Cadastro')} >
-                <Text style={{ fontSize: 16, fontWeight: 'bold', color: theme.colors.three }} >CADASTRE-SE</Text>
+                <Text style={{ fontSize: 16, color: theme.colors.three, fontFamily: theme.fonts.bold }} >CADASTRE-SE</Text>
               </TouchableOpacity>
             </View>
         </View>

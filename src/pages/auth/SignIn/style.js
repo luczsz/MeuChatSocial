@@ -30,8 +30,8 @@ export const styles = StyleSheet.create({
         marginBottom: 20,
     },
     title:{
-        fontSize: 40,
-        fontWeight: 'bold',
+        fontSize: 40,        
+        fontFamily: theme.fonts.bold,
         color: theme.colors.white,
     },
     next:{
@@ -43,8 +43,8 @@ export const styles = StyleSheet.create({
         borderRadius: 12,
     },
     nextText:{
-        fontSize: 22,
-        fontWeight: 'bold',
+        fontSize: 22,        
+        fontFamily: theme.fonts.bold,
         color: theme.colors.white,
     },
 
@@ -56,5 +56,7 @@ export const styles = StyleSheet.create({
         height: 60,
         paddingLeft: 16,
         borderRadius: 8,
+        fontFamily: theme.fonts.regular,
+        color: theme.colors.white,
     }
 })

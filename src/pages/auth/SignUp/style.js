@@ -41,12 +41,12 @@ export const styles = StyleSheet.create({
     },
     title:{
         fontSize: 40,
-        fontWeight: 'bold',
+        fontFamily: theme.fonts.bold,
         color: theme.colors.white,
     },
     subTitle:{
         fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: theme.fonts.bold,
         color: theme.colors.white,
     },
     next:{
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
     },
     nextText:{
         fontSize: 22,
-        fontWeight: 'bold',
+        fontFamily: theme.fonts.bold,
         color: theme.colors.white,
     },
 
@@ -71,5 +71,7 @@ export const styles = StyleSheet.create({
         height: 60,
         paddingLeft: 16,
         borderRadius: 8,
+        fontFamily: theme.fonts.regular,
+        color: theme.colors.white,
     }
 })

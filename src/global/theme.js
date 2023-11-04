@@ -16,8 +16,8 @@ export const theme = {
         white: '#E8F1F2',
       },
 
-      /* fonts: {
-        title700: 'Ubuntu_700Bold',
-        text400: 'Ubuntu_400Regular',
-      } */
+      fonts: {
+        bold: 'Ubuntu_700Bold',
+        regular: 'Ubuntu_400Regular',
+      }
 };
