@@ -53,8 +53,8 @@ export const styles = StyleSheet.create({
         borderRadius: 12,
     },
     nextText:{
-        fontSize: 20,
-        fontWeight: 'bold',
+        fontSize: 20,        
+        fontFamily: theme.fonts.bold,
         color: theme.colors.white,
     }
 })
