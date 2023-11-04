@@ -9,7 +9,7 @@ import { theme } from '../../../global/theme';
 import { chats } from '../../../components/list';
 import ListChatUnity from '../../../components/ListChatUnity';
 
-export default function Home() {
+export default function Account() {
 
     const addImage = 'https://image.lexica.art/full_jpg/19f280a2-2b97-4be2-b782-1fd5c70b84f4';
     const navigation = useNavigation();
@@ -19,34 +19,25 @@ export default function Home() {
         <View style={styles.header}>
             <View style={styles.headerContainer} >
              
-                <TouchableOpacity onPress={ () => navigation.navigate('Conta')} >
-                    <Feather name='user' size={30} color={theme.colors.one} />
-                </TouchableOpacity>
-
-                <TouchableOpacity>
-                    <Feather name='bell' size={30} color={theme.colors.one} />
+                <TouchableOpacity onPress={ () => navigation.goBack()} >
+                    <Feather name='arrow-left' size={30} color={theme.colors.one} />
                 </TouchableOpacity>
 
             </View>
         </View>
         <Image source={{uri: addImage}} style={styles.logo} />
+        <Text style={styles.title} >Lucas Souz</Text>
+        <Text style={styles.subTitle} >email@email.com</Text>
         <View style={styles.content} >
             <TouchableOpacity style={styles.comunity} activeOpacity={0.7} onPress={ () => navigation.navigate('Comunidade')} >
-                <Feather name='command' size={30} color={theme.colors.white} />
-                <Text style={styles.title} >Comunidade</Text>
+                <Feather name='users' size={30} color={theme.colors.white} />
+                <Text style={styles.title} >Amigos</Text>
             </TouchableOpacity>
-            <View style={{ width: '90%', marginTop: 10, marginBottom: 10, padding: 10, }} >
-                <Text style={styles.title} >
-                    Meus Chats
-                </Text>
-            </View>
-            <View style={{width: '100%', flex: 1, padding: 12,}} >
-                <FlatList
-                    data={chats}
-                    keyExtractor={ (item) => item.id}
-                    renderItem={ ({item}) => <ListChatUnity data={item} /> }
-                />
-            </View>
+        </View>
+        <View style={styles.button} >
+            <TouchableOpacity>
+                <Text style={styles.lgOut} >SAIR</Text>
+            </TouchableOpacity>
         </View>
    </View>
   );

@@ -5,6 +5,7 @@ const AppStack = createNativeStackNavigator();
 
 import Home from "../pages/app/Home";
 import Community from "../pages/app/Community";
+import Account from "../pages/app/Account";
 
 export default function AppRoutes(){
     return(
@@ -20,6 +21,14 @@ export default function AppRoutes(){
             <AppStack.Screen
                 name="Comunidade"
                 component={Community}
+                options={{
+                    headerShown: false,
+                }}
+            />
+            
+            <AppStack.Screen
+                name="Conta"
+                component={Account}
                 options={{
                     headerShown: false,
                 }}
