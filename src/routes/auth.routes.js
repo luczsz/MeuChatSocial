@@ -8,12 +8,14 @@ import Splash from '../pages/auth/Splash';
 import SignIn from '../pages/auth/SignIn';
 import SignUp from '../pages/auth/SignUp';
 import ImageProfile from '../pages/auth/ImageProfile';
+import { theme } from '../global/theme';
 
 
 
 export default function AuthRoutes() {
  return (
         <AuthStack.Navigator>
+
             <AuthStack.Screen 
               name='Splash' 
               component={Splash}
@@ -30,7 +32,14 @@ export default function AuthRoutes() {
               }}
             />
             
-            <AuthStack.Screen name='Cadastro' component={SignUp} />
+            <AuthStack.Screen 
+              name='Cadastro' 
+              component={SignUp}
+              options={{
+                 headerShown: false,
+              }} 
+            />
+
             <AuthStack.Screen name='Profile' component={ImageProfile} />
         </AuthStack.Navigator>
   );
