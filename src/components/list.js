@@ -63,3 +63,30 @@ export const conversas = [
       mensageImage: 'https://w.forfun.com/fetch/89/89249b0720ec8fe3308f7e84af50f748.jpeg',
     },
 ];
+
+export const onlyChat = [
+  {
+    id: '0',
+    type: 'Send',
+    username: 'Lucas Souza',
+    image: 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
+    mensage: 'Um pequeno teste de envio parcial para analisar o sistema inteiroUm pequeno teste de envio parcial para analisar o sistema inteiroUm pequeno teste de envio parcial para analisar o sistema inteiroUm pequeno teste de envio parcial para analisar o sistema inteiroUm pequeno teste de envio parcial para analisar o sistema inteiro',
+    mensageImage: 'null',
+  },
+  {
+    id: '1',
+    type: 'Received',
+    username: 'Matheus Santos',
+    image: 'https://www.shutterstock.com/image-photo/headshot-portrait-smiling-millennial-male-260nw-1667439913.jpg',
+    mensage: 'Dois sis pequeno teste de envio parcial para analisar o sistema inteiro',
+    mensageImage: 'null',
+  },
+  {
+    id: '2',
+    type: 'Send',
+    username: 'Lucas Souza',
+    image: 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
+    mensage: 'Um pequeno teste de envio parcial para analisar o sistema inteiroUm pequeno teste de envio parcial para analisar o sistema inteiroUm pequeno teste de envio parcial para analisar o sistema inteiroUm pequeno teste de envio parcial para analisar o sistema inteiroUm pequeno teste de envio parcial para analisar o sistema inteiro',
+    mensageImage: 'null',
+  },
+];

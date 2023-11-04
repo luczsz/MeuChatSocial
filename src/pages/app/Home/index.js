@@ -14,6 +14,10 @@ export default function Home() {
     const addImage = 'https://image.lexica.art/full_jpg/19f280a2-2b97-4be2-b782-1fd5c70b84f4';
     const navigation = useNavigation();
 
+    function redirect(data){
+        navigation.navigate('Chat', data);
+    }
+
  return (
    <View style={styles.container} >
         <View style={styles.header}>
@@ -44,7 +48,7 @@ export default function Home() {
                 <FlatList
                     data={chats}
                     keyExtractor={ (item) => item.id}
-                    renderItem={ ({item}) => <ListChatUnity data={item} /> }
+                    renderItem={ ({item}) => <ListChatUnity data={item} chat={redirect} /> }
                 />
             </View>
         </View>

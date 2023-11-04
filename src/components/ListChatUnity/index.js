@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { theme } from '../../global/theme';
 
-export default function ListChatUnity({data}) {
+export default function ListChatUnity({data, chat}) {
  return (
-   <TouchableOpacity activeOpacity={0.8} style={styles.container} >
+   <TouchableOpacity activeOpacity={0.8} style={styles.container} onPress={ () => chat(data)} >
         <Image source={{uri: data.image }} style={styles.logo} />
         <Text style={styles.title}> {data.username} </Text>
    </TouchableOpacity>
