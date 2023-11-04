@@ -27,13 +27,13 @@ export const amigos = [
 export const solicitações = [
     {
       id: '0',
-      username: 'Lucas Souza',
-      image: 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg'
+      username: 'Alessandra Paiva',
+      image: 'https://cdn.hero.page/pfp/dcfa48a9-1dd2-47ef-9897-da3e0e7f2f40-cute-shoujo-anime-girl-cute-anime-profile-pictures-for-girls-1.png '
     },
     {
       id: '1',
-      username: 'Matheus Santos',
-      image: 'https://www.shutterstock.com/image-photo/headshot-portrait-smiling-millennial-male-260nw-1667439913.jpg',
+      username: 'Liana França',
+      image: 'https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/123016267/original/aac920351d48be38eac1cfd019f8c0321bfbcafc/illustrate-an-anime-avatar-for-your-profile.png',
     },
 ];
 

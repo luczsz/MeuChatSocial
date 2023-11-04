@@ -13,6 +13,7 @@ import Home from "../pages/app/Home";
 import Community from "../pages/app/Community";
 import Account from "../pages/app/Account";
 import Friends from "../pages/app/Friends";
+import Solicitation from "../pages/app/Solicitation";
 
 export default function AppRoutes(){
 
@@ -38,7 +39,7 @@ export default function AppRoutes(){
             }}
             >
                 <TopStack.Screen name="Amigos" component={Friends} />
-                <TopStack.Screen name="Solicitações" component={Friends} />
+                <TopStack.Screen name="Solicitações" component={Solicitation} />
             </TopStack.Navigator>
         )
     }
