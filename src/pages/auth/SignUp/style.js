@@ -63,6 +63,20 @@ export const styles = StyleSheet.create({
         color: theme.colors.white,
     },
 
+    desative:{
+        backgroundColor: theme.colors.two,
+        width: '80%',
+        height: 60,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 12,
+    },
+    desativeText:{
+        fontSize: 22,
+        fontFamily: theme.fonts.bold,
+        color: theme.colors.white,
+    },
+
 
     input:{
         borderColor: theme.colors.three,

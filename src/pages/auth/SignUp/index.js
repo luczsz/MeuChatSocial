@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,6 +9,19 @@ import { theme } from '../../../global/theme';
 export default function SignUp() {
 
   const navigation = useNavigation();
+
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+  function redirect(){
+        let data ={
+            nome: nome,
+            email: email,
+            senha: senha,
+        };
+        navigation.navigate('Profile', data);
+  };
 
  return (
    <View style={styles.container} >
@@ -22,23 +35,44 @@ export default function SignUp() {
             placeholder='Nome'
             placeholderTextColor={theme.colors.white}
             style={styles.input} 
+            autoCorrect={false}
+            autoCapitalize='none'
+            value={nome}
+            onChangeText={ (text) => setNome(text)}
           />
           <TextInput 
             placeholder='Email'
             placeholderTextColor={theme.colors.white}
             style={styles.input} 
+            autoCorrect={false}
+            autoCapitalize='none'
+            value={email}
+            onChangeText={ (text) => setEmail(text)}
           />
           <TextInput 
             placeholder='Senha'
             placeholderTextColor={theme.colors.white}
-            style={styles.input} 
+            style={styles.input}
+            autoCorrect={false}
+            autoCapitalize='none'
+            value={senha}
+            secureTextEntry={true}
+            onChangeText={ (text) => setSenha(text)} 
           />
         </View>
 
         <View style={styles.button} >
-            <TouchableOpacity style={styles.next} onPress={ () => navigation.navigate('Profile')} >
-              <Text style={styles.nextText} >Prosseguir</Text>
-            </TouchableOpacity>
+
+            {email === '' ?
+              <TouchableOpacity style={styles.desative} onPress={ () => alert('Dados Vazios')} >
+                <Text style={styles.desativeText} >Prosseguir</Text>
+              </TouchableOpacity>
+              :
+              <TouchableOpacity style={styles.next} onPress={ () => redirect()} >
+                <Text style={styles.nextText} >Prosseguir</Text>
+              </TouchableOpacity>
+            }
+
             
             <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }} >
                 <Text style={{ color: theme.colors.white, fontFamily: theme.fonts.regular }} >Já tem uma conta?</Text>

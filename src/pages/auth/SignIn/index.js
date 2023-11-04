@@ -1,8 +1,9 @@
-import React from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
+import React, {useState, useContext} from 'react';
+import { View, Text, Image, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { styles } from './style';
+import { AuthContext } from '../../../context/auth';
 
 import Logo from '../../../assets/logo.png';
 import { theme } from '../../../global/theme';
@@ -10,7 +11,14 @@ import { theme } from '../../../global/theme';
 export default function SignIn() {
 
   const navigation = useNavigation();
+  const { signIn, loading } = useContext(AuthContext);
 
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+    function logarUser(){
+        signIn(email, senha);
+    }
 
  return (
    <View style={styles.container} >
@@ -20,17 +28,28 @@ export default function SignIn() {
             placeholder='Email'
             placeholderTextColor={theme.colors.white}
             style={styles.input} 
+            autoCapitalize='none'
+            value={email}
+            onChangeText={ (text) => setEmail(text)}
           />
           <TextInput 
             placeholder='Senha'
             placeholderTextColor={theme.colors.white}
             style={styles.input} 
+            autoCapitalize='none'
+            value={senha}
+            secureTextEntry={true}
+            onChangeText={ (text) => setSenha(text)}
           />
         </View>
 
         <View style={styles.button} >
-            <TouchableOpacity style={styles.next} >
-              <Text style={styles.nextText} >Entre</Text>
+            <TouchableOpacity style={styles.next}  onPress={() => logarUser()} >
+                {loading ?
+                  <ActivityIndicator size={'large'} color={theme.colors.white} />
+                  :
+                  <Text style={styles.nextText} >Entre</Text>     
+                }
             </TouchableOpacity>
             
             <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }} >

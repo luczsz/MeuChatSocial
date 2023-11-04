@@ -1,13 +1,16 @@
-import React from "react";
+import React, {useContext} from "react";
 
 import AppRoutes from "./app.routes";
 import AuthRoutes from "./auth.routes";
 
-//Context
+import { AuthContext } from "../context/auth";
 
 
 export default function Routes(){
+   
+    const {signed, user} = useContext(AuthContext);
+   
     return(
-        <AuthRoutes/>
+        signed ? <AuthRoutes/> : <AppRoutes/>
     )
 }
