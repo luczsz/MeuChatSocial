@@ -15,6 +15,7 @@ import Account from "../pages/app/Account";
 import Friends from "../pages/app/Friends";
 import Solicitation from "../pages/app/Solicitation";
 import ChatSolo from "../pages/app/ChatSolo";
+import Profile from "../pages/app/Profile";
 
 export default function AppRoutes(){
 
@@ -74,6 +75,14 @@ export default function AppRoutes(){
             <AppStack.Screen
                 name="Chat"
                 component={ChatSolo}
+                options={{
+                    headerShown: false,
+                }}
+            />
+
+            <AppStack.Screen
+                name="Perfil"
+                component={Profile}
                 options={{
                     headerShown: false,
                 }}

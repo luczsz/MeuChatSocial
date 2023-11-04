@@ -1,9 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { theme } from '../../global/theme';
+import { useNavigation } from '@react-navigation/native';
 
 export default function MensageSolo({ data }) {
   const { type, mensage, username, mensageImage } = data;
+
+  const navigation = useNavigation();
+
+  function redirect(data){
+    navigation.navigate('Perfil', data);
+  }
 
   const MessageSend = () => {
     return (
@@ -13,7 +20,9 @@ export default function MensageSolo({ data }) {
           {mensageImage === 'null'? <></> : <Image source={{uri: mensageImage}} style={styles.images} /> }
           <Text style={styles.textMensage} >{mensage}</Text>
         </View>
+        <TouchableOpacity onPress={() => redirect(data)} >
           <Image source={{uri: data.image}} style={styles.imgs} />
+        </TouchableOpacity>
       </View>
     );
   };
@@ -21,7 +30,9 @@ export default function MensageSolo({ data }) {
   const MessageReceived = () => {
     return (
       <View style={styles.containerReceived} >
+        <TouchableOpacity onPress={() => redirect(data)} >
           <Image source={{uri: data.image}} style={styles.imgs} />
+        </TouchableOpacity>
         <View style={styles.reseived}>
           <Text style={styles.userNameReceived} >{username}</Text>
           {mensageImage === 'null'? <></> : <Image source={{uri: mensageImage}} style={styles.images} /> }
