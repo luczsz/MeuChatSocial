@@ -29,7 +29,7 @@ export default function Account() {
         <Text style={styles.title} >Lucas Souz</Text>
         <Text style={styles.subTitle} >email@email.com</Text>
         <View style={styles.content} >
-            <TouchableOpacity style={styles.comunity} activeOpacity={0.7} onPress={ () => navigation.navigate('Comunidade')} >
+            <TouchableOpacity style={styles.comunity} activeOpacity={0.7} onPress={ () => navigation.navigate('Friends')} >
                 <Feather name='users' size={30} color={theme.colors.white} />
                 <Text style={styles.title} >Amigos</Text>
             </TouchableOpacity>
