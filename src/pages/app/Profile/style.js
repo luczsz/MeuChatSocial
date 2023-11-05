@@ -77,10 +77,31 @@ export const styles = StyleSheet.create({
         paddingRight: 14,
         flexDirection: 'row'
     },
+    comunityRequest:{
+        backgroundColor: theme.colors.atention,
+        width: '80%',
+        height: 60,
+        borderRadius: 12,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        gap: 10,
+        paddingLeft: 14,
+        paddingRight: 14,
+        flexDirection: 'row'
+    },
     chat:{
         width: 60,
         height: 60,
         backgroundColor: theme.colors.three,
+
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 12,
+    },
+    chatRequest:{
+        width: 60,
+        height: 60,
+        backgroundColor: theme.colors.two,
 
         alignItems: 'center',
         justifyContent: 'center',

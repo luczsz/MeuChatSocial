@@ -71,18 +71,6 @@ export default function Community() {
         generationID();
     },[]);
     
-    //Definir os dados
-    function definition(){
-        //Id definido com uma variavel temporal
-        setType(user.id);
-        setUsername(user.nome);
-        setImage(user.image);
-        // Mensagem já definida no input
-        setMensageImage('null');
-
-        sendMensage();
-    };
-    
     //Adicionar mensagem
     async function sendMensage() {
     

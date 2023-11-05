@@ -1,19 +1,76 @@
-import React from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { AuthContext } from '../../../context/auth';
 
 import { styles } from './style';
 import { Feather } from '@expo/vector-icons';
 import { theme } from '../../../global/theme';
 
+//base de dados
+import { ref, onValue, child, set } from 'firebase/database';
+import { auth, database, } from '../../../services/firebaseConnectio';
 
 
 export default function Profile() {
 
     const addImage = 'https://image.lexica.art/full_jpg/19f280a2-2b97-4be2-b782-1fd5c70b84f4';
     const navigation = useNavigation();
+    const { user } = useContext(AuthContext);
     const route = useRoute();
-    const { username, image } = route.params;
+    const { username, image, type } = route.params;
+
+    const [dados, setDados] = useState([]);
+    const [state, setState] = useState(false);
+    const [envio, setEnvio] = useState(null);
+    const [enviado, setEnviado] = useState(false);
+
+    useEffect( () => {
+        async function loadDados(){
+            const dataRef = ref(database, `amigos/${type}`);
+    
+            onValue(dataRef, (snap) => {
+              setDados([]);
+    
+              snap.forEach( (childItem) => {
+                
+                const dados = childItem.val();
+      
+                // Obtém o ID do item atual
+                const itemId = childItem.key;
+
+                // Verifica se o ID é igual à chave do item
+                if (itemId === type) {
+                    setState(true);
+            }})
+            })
+        };
+    
+          loadDados();
+    
+    },[]);
+
+
+    //Solicitação de amizade
+    async function sendMensage() {
+    
+        const dataRef = ref(database, `Request/${type}`);
+    
+        let data = {
+            id: user.id,
+            username: user.nome,
+            image: user.url, 
+        };
+    
+        set(dataRef, data)
+        .then( () => {
+            setEnviado(true);
+        })
+        .catch( (error) => {
+            alert('Deu erro' + error);
+        })
+  
+    };
 
  return (
    <View style={styles.container} >
@@ -31,13 +88,32 @@ export default function Profile() {
         <Text style={styles.subTitle} >email@email.com</Text>
       
         <View style={styles.content} >
-            <TouchableOpacity style={styles.comunity} activeOpacity={0.7} onPress={ () => navigation.navigate('Friends')} >
+          
+          {enviado ?
+            <TouchableOpacity style={styles.comunityRequest} activeOpacity={0.7} onPress={ () => alert('aguarde seu amigo, lhe aceitar')} >
+                <Feather name='coffee' size={30} color={theme.colors.white} />
+                <Text style={styles.title} >Solicitação enviada</Text>
+            </TouchableOpacity>
+            :
+            <TouchableOpacity style={styles.comunity} activeOpacity={0.7} onPress={ () => sendMensage()} >
                 <Feather name='user-plus' size={30} color={theme.colors.white} />
                 <Text style={styles.title} >Adicionar como amigo</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.chat} activeOpacity={0.7} onPress={ () => navigation.navigate('Friends')} >
-                <Feather name='message-square' size={30} color={theme.colors.white} />
-            </TouchableOpacity>
+
+          }
+
+
+
+
+            {state ?
+                <TouchableOpacity style={styles.chat} activeOpacity={0.7} onPress={ () => navigation.navigate('Friends')} >
+                    <Feather name='message-square' size={30} color={theme.colors.white} />
+                </TouchableOpacity>
+                :
+                <TouchableOpacity style={styles.chatRequest} activeOpacity={0.7} onPress={ () => alert('Vocês ainda não são amigos')} >
+                    <Feather name='message-square' size={30} color={theme.colors.white} />
+                </TouchableOpacity>
+            }
         </View>
    </View>
   );
