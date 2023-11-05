@@ -1,6 +1,7 @@
 import React, {useState, useEffect, createContext} from "react";
 
 import { auth, database } from '../services/firebaseConnectio';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //Criando a base 
 import { ref, get, set } from 'firebase/database';
@@ -23,7 +24,7 @@ export default function AuthProvaider({children}){
                 setUser(JSON.parse(storageUser));
             }
             };
-            //loadDados();
+            loadDados();
         },[]);
     
     // Cadastrar user
@@ -53,7 +54,7 @@ export default function AuthProvaider({children}){
                         url: url,
                     };
                     setUser(data);
-                    //storageUser(data);
+                    storageUser(data);
                     setLoading(false);
                 })
                 .catch((error) => {
@@ -86,7 +87,7 @@ export default function AuthProvaider({children}){
 
                         };
                         setUser(data);
-                        //storageUser(data);
+                        storageUser(data);
                         setLoading(false);
                     } else {
                         console.log('Usuario Não econtrado');
@@ -126,6 +127,9 @@ export default function AuthProvaider({children}){
         };
             
     //Dados offline
+        async function storageUser(data){
+            await AsyncStorage.setItem('Auth_user', JSON.stringify(data));
+        };
     
 
     return(
