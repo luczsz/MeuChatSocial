@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../../context/auth';
 
 import { styles } from './style';
 import { Feather } from '@expo/vector-icons';
@@ -13,6 +14,7 @@ export default function Account() {
 
     const addImage = 'https://image.lexica.art/full_jpg/19f280a2-2b97-4be2-b782-1fd5c70b84f4';
     const navigation = useNavigation();
+    const { signOut } = useContext(AuthContext);
 
  return (
    <View style={styles.container} >
@@ -35,7 +37,7 @@ export default function Account() {
             </TouchableOpacity>
         </View>
         <View style={styles.button} >
-            <TouchableOpacity>
+            <TouchableOpacity onPress={ () => signOut()} >
                 <Text style={styles.lgOut} >SAIR</Text>
             </TouchableOpacity>
         </View>
