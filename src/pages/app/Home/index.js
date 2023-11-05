@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../../context/auth';
 
 import { styles } from './style';
 import { Feather } from '@expo/vector-icons';
@@ -9,14 +10,50 @@ import { theme } from '../../../global/theme';
 import { chats } from '../../../components/list';
 import ListChatUnity from '../../../components/ListChatUnity';
 
+//base de dados
+import { ref, onValue, child } from 'firebase/database';
+import { auth, database, } from '../../../services/firebaseConnectio';
+
 export default function Home() {
 
-    const addImage = 'https://image.lexica.art/full_jpg/19f280a2-2b97-4be2-b782-1fd5c70b84f4';
     const navigation = useNavigation();
+    const { user } = useContext(AuthContext)
+    const addImage = user.url;
+    
+    const [dados, setDados] = useState([]);
 
     function redirect(data){
         navigation.navigate('Chat', data);
-    }
+    };
+
+    useEffect( () => {
+        async function loadDados(){
+            const dataRef = ref(database, `meuChats/`);
+    
+            onValue(dataRef, (snap) => {
+              setDados([]);
+    
+              snap.forEach( (childItem) => {
+                
+                const dados = childItem.val();
+                
+                let list = {
+                  key: childItem.key,
+                  nome: dados.nome,
+                  url: dados.url,
+                };
+    
+                setDados( oldArray => [...oldArray, list]);
+                console.log(list);
+              })
+            })
+          };
+    
+          loadDados();
+    
+    },[]);
+
+
 
  return (
    <View style={styles.container} >
@@ -46,9 +83,10 @@ export default function Home() {
             </View>
             <View style={{width: '100%', flex: 1, padding: 12,}} >
                 <FlatList
-                    data={chats}
+                    data={dados}
                     keyExtractor={ (item) => item.id}
                     renderItem={ ({item}) => <ListChatUnity data={item} chat={redirect} /> }
+                    ListEmptyComponent={ <Text style={{color: 'white'}} > Sem dados na lista</Text>}
                 />
             </View>
         </View>

@@ -84,6 +84,7 @@ export default function AuthProvaider({children}){
                             nome: userData.nome,
                             email: userData.email,
                             id: userData.id,
+                            url: userData.url,
 
                         };
                         setUser(data);
