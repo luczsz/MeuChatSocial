@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { theme } from '../../global/theme';
 import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../context/auth';
+
 
 export default function MensageSend({ data }) {
   const { type, mensage, username, mensageImage } = data;
 
   const navigation = useNavigation();
+  const { user } = useContext(AuthContext);
 
   function redirect(data){
     navigation.navigate('Perfil', data);
@@ -47,7 +50,7 @@ export default function MensageSend({ data }) {
     );
   };
 
-  return <>{type === 'Send' ? <MessageSend /> : <MessageReceived />}</>;
+  return <>{type === user.id ? <MessageSend /> : <MessageReceived />}</>;
 }
 
 const styles = StyleSheet.create({
