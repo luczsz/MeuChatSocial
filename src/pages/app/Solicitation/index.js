@@ -29,9 +29,9 @@ export default function Solicitation() {
             const dados = childItem.val();
             
             let list = {
-              key: childItem.key,
-              nome: dados.nome,
-              url: dados.url,
+              id: childItem.key,
+              nome: dados.username,
+              url: dados.image,
             };
 
             setDados( oldArray => [...oldArray, list]);
@@ -49,9 +49,9 @@ export default function Solicitation() {
         <View style={styles.content} >
         <FlatList
           data={dados}
-          keyExtractor={ (item) => item.id}
-          renderItem={ ({item}) => <ListChatUnity data={item} chat={redirect} /> }
-          ListEmptyComponent={ <Text style={{color: 'white'}} > Sem dados na lista</Text>}
+          keyExtractor={ (item) => item.key}
+          renderItem={ ({item}) => <ListSolicitation data={item}/> }
+          ListEmptyComponent={ <Text style={{color: 'white'}} > Você ainda não tem solicitações de amizade</Text>}
         />
         </View>
    </View>

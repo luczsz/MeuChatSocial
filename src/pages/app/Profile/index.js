@@ -10,6 +10,7 @@ import { theme } from '../../../global/theme';
 //base de dados
 import { ref, onValue, child, set } from 'firebase/database';
 import { auth, database, } from '../../../services/firebaseConnectio';
+import { getIdTokenResult } from 'firebase/auth';
 
 
 export default function Profile() {
@@ -21,13 +22,14 @@ export default function Profile() {
     const { username, image, type } = route.params;
 
     const [dados, setDados] = useState([]);
-    const [state, setState] = useState(false);
+    const [state, setState] = useState(null);
     const [envio, setEnvio] = useState(null);
     const [enviado, setEnviado] = useState(false);
+    const [id, setId] = useState(0);
 
     useEffect( () => {
         async function loadDados(){
-            const dataRef = ref(database, `amigos/${type}`);
+            const dataRef = ref(database, `Request/${user.id}`);
     
             onValue(dataRef, (snap) => {
               setDados([]);
@@ -37,16 +39,38 @@ export default function Profile() {
                 const dados = childItem.val();
       
                 // Obtém o ID do item atual
-                const itemId = childItem.key;
+                const itemId = dados.id;
+                const itemKey = childItem.key;
 
                 // Verifica se o ID é igual à chave do item
                 if (itemId === type) {
-                    setState(true);
-            }})
+                   console.log('id correto');
+                   setState('1');
+                   setEnviado(true);
+                } else {
+                    //console.log(`Seu itemId é: ${itemId} e seu type é: ${type} e usa key é: ${itemKey} você é ${user.id}`);
+                    setState(null);
+                    setEnviado(false);
+                }    
+            })
             })
         };
+
+        function generationID(){
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let newRandomId = '';
+    
+            for (let i = 0; i < 8; i++) {
+                const randomIndex = Math.floor(Math.random() * chars.length);
+                newRandomId += chars.charAt(randomIndex);
+              }
+          
+              setId(newRandomId);
+        };
+
     
           loadDados();
+          generationID();
     
     },[]);
 
@@ -54,7 +78,7 @@ export default function Profile() {
     //Solicitação de amizade
     async function sendMensage() {
     
-        const dataRef = ref(database, `Request/${type}`);
+        const dataRef = ref(database, `Request/${type}/${id}`);
     
         let data = {
             id: user.id,
@@ -86,6 +110,9 @@ export default function Profile() {
         <Image source={{uri: image}} style={styles.logo} />
         <Text style={styles.title} > {username} </Text>
         <Text style={styles.subTitle} >email@email.com</Text>
+        <Text style={styles.subTitle} > id amigo:  {type} </Text>
+        <Text style={styles.subTitle} > identificador: {id} </Text>
+        <Text style={styles.subTitle} > Você: {user.id} </Text>
       
         <View style={styles.content} >
           
