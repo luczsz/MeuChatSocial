@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext} from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { AuthContext } from '../../../context/auth';
 
 import { styles } from './style';
 import { Feather } from '@expo/vector-icons';
@@ -19,6 +20,7 @@ export default function ImageProfile() {
   const route = useRoute();
   const { nome, email, senha } = route.params;
   const addImage = 'https://cdn.pixabay.com/photo/2017/11/10/05/24/add-2935429_960_720.png';
+  const { signUp, loading } = useContext(AuthContext);
 
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState(null);
@@ -95,6 +97,13 @@ export default function ImageProfile() {
     }
   };
 
+
+  //Função para adicionar usuarios
+  function addUser(){
+    signUp(nome, email, senha, url);
+  };
+
+
  return (
    <View style={styles.container} >
         <View style={styles.header} >
@@ -115,8 +124,13 @@ export default function ImageProfile() {
         </View>
         <View style={styles.button} >
           
-            <TouchableOpacity style={styles.next} onPress={ () => navigation.navigate('Profile')} >
-              <Text style={styles.nextText} >Cadastrar</Text>
+            <TouchableOpacity style={styles.next} onPress={ () => addUser() } >
+
+                {loading ?
+                  <ActivityIndicator size={'large'} color={theme.colors.white} />
+                  :
+                  <Text style={styles.nextText} >Cadastrar</Text>     
+                }
             </TouchableOpacity>
       
         </View>

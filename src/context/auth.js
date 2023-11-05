@@ -27,7 +27,7 @@ export default function AuthProvaider({children}){
         },[]);
     
     // Cadastrar user
-        async function signUp(nome, email, senha,){ 
+        async function signUp(nome, email, senha, url){ 
             setLoading(true);
             createUserWithEmailAndPassword(auth, email, senha)
             .then((userCredential) => {
@@ -40,6 +40,7 @@ export default function AuthProvaider({children}){
                     email: email,
                     senha: senha,
                     id: userId,
+                    url: url,
                 };
     
                 set(dataRef, data)
@@ -49,6 +50,7 @@ export default function AuthProvaider({children}){
                         email: email,
                         senha: senha,
                         id: userId,
+                        url: url,
                     };
                     setUser(data);
                     //storageUser(data);
