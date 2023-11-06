@@ -18,7 +18,7 @@ export default function Friends() {
 
   useEffect( () => {
     async function loadDados(){
-        const dataRef = ref(database, `friends/${user.id}`);
+        const dataRef = ref(database, `friend/${user.id}`);
 
         onValue(dataRef, (snap) => {
           setDados([]);
@@ -29,8 +29,8 @@ export default function Friends() {
             
             let list = {
               key: childItem.key,
-              nome: dados.nome,
-              url: dados.url,
+              nome: dados.username,
+              url: dados.image,
             };
 
             setDados( oldArray => [...oldArray, list]);
@@ -39,7 +39,7 @@ export default function Friends() {
         })
       };
 
-      //loadDados();
+      loadDados();
 
 },[]);
 
@@ -49,7 +49,7 @@ export default function Friends() {
           <FlatList
             data={dados}
             keyExtractor={ (item) => item.id}
-            renderItem={ ({item}) => <ListChatUnity data={item} chat={redirect} /> }
+            renderItem={ ({item}) => <ListFriends data={item}/> }
             ListEmptyComponent={ <Text style={{color: 'white'}} > Você ainda não tem amigos salvos em sua lista</Text>}
           />
         </View>
