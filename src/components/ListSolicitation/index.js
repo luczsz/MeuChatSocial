@@ -3,14 +3,14 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { theme } from '../../global/theme';
 import { Feather } from '@expo/vector-icons';
 
-export default function ListSolicitation({data}) {
+export default function ListSolicitation({data, add}) {
  return (
    <TouchableOpacity activeOpacity={0.8} style={styles.container} >
         <Image source={{uri: data.url }} style={styles.logo} />
         <Text style={styles.title} numberOfLines={1} > {data.nome} </Text>
 
         <View style={{ gap: 10, flexDirection: 'row'}} >
-            <TouchableOpacity style={styles.chat} >
+            <TouchableOpacity style={styles.chat} onPress={ () => add(data)} >
                 <Feather name='check' size={20} color={theme.colors.white} />  
             </TouchableOpacity>
             
