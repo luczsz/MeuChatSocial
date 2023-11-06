@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { View, Text, FlatList, TouchableOpacity, TextInput, Modal } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TextInput, Modal, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../../context/auth';
 
@@ -9,10 +9,13 @@ import { theme } from '../../../global/theme';
 
 import { conversas } from '../../../components/list';
 import MensageSend from '../../../components/MensageSend';
+import * as ImagePicker from 'expo-image-picker';
 
 //base de dados
 import {ref , set, getDatabase, onValue, child  } from 'firebase/database';
-import { auth, database, } from '../../../services/firebaseConnectio';
+import { ref as storageRef, uploadBytes, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import { auth, database, storage } from '../../../services/firebaseConnectio';
+
 
 
 export default function Community() {
@@ -28,11 +31,21 @@ export default function Community() {
     const [image, setImage] = useState(null);
     const [mensagem, setMensagem] = useState(null);
     const [mensageImage, setMensageImage] = useState(null);
+    const [progress, setProgress] = useState('');
 
     const [open, setOpen] = useState(false);
     const [assets, setAssets] = useState(false);
+    const [loading, setLoading] = useState(false);
     
     useEffect( () => {
+
+        (async () => {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+              alert('Desculpe, precisamos da permissão para acessar a galeria para fazer isso funcionar!');
+            }
+          })
+
         async function loadDados(){
             const dataRef = ref(database, `chatComunidade/`);
     
@@ -91,11 +104,71 @@ export default function Community() {
         set(dataRef, data)
         .then( () => {
             setMensagem('');
+            setAssets(false);
         })
         .catch( (error) => {
             alert('Deu erro' + error);
         })
   
+    };
+
+    // Função para chamar a camera
+    async function chooiceImage() {
+        try {
+        let results = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+    
+        if (!results.canceled && results.assets && results.assets.length > 0) {
+            const uri = results.assets[0].uri;
+            setImage(uri);
+            uploadImageToFirebaseStorage(uri);
+            setLoading(true);
+
+        } else {
+            console.log('Seleção de imagem cancelada ou sem assets.');
+        }
+        } catch (error) {
+        console.error('Erro ao escolher imagem:', error);
+        }
+    };
+
+    // Função para enviar a imagem 
+    const uploadImageToFirebaseStorage = async (uri) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+
+    const storagePath = `chatComunidade/${id}`;
+    const imageRef = storageRef(storage, storagePath);
+
+    try {
+        const uploadTask = uploadBytesResumable(imageRef, blob);
+
+        uploadTask.on('state_changed',
+        (snapshot) => {
+            // Handle progress, if needed
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setProgress(`${progress}%`);
+        },
+        (error) => {
+            // Handle unsuccessful uploads
+            console.error('Error uploading image: ', error);
+        },
+        () => {
+            // Handle successful uploads on complete
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log('File available at', downloadURL);
+            setMensageImage(downloadURL);
+            // Do something with the download URL, like saving it to the database
+            });
+        }
+        );
+    } catch (error) {
+        console.error('Error uploading image: ', error);
+    }
     };
 
  return (
@@ -104,7 +177,7 @@ export default function Community() {
             <TouchableOpacity onPress={ () => navigation.goBack()} >
                 <Feather name='arrow-left' size={30} color={theme.colors.three} />
             </TouchableOpacity>
-            <Text style={styles.title} >Comunidade</Text>        
+            <Text style={styles.title} >Comunidade</Text>          
         </View>
         <View style={styles.content} >
             <FlatList
@@ -151,17 +224,28 @@ export default function Community() {
                 <View style={styled.card} >
                    <TouchableOpacity activeOpacity={0.7} onPress={ () => setOpen(false)} >
                         <Feather name='x' size={30} color={theme.colors.three} />
-                   </TouchableOpacity>
-                   
-                   <TouchableOpacity style={styled.menuItem} activeOpacity={0.7} >
-                        <Feather name='camera' size={30} color={theme.colors.white} />
                         <Text style={styled.menuItemText} >Adicionar uma foto</Text>
                    </TouchableOpacity>
 
-                   <TouchableOpacity style={styled.menuItem} activeOpacity={0.7} >
-                        <FontAwesome name='microphone' size={30} color={theme.colors.white} />
-                        <Text style={styled.menuItemText} >Adicionar uma foto</Text>
-                   </TouchableOpacity>
+                   { loading ? 
+                    <>
+                        <ActivityIndicator size={'large'} color={theme.colors.three} />
+                        {progress === '100%' ? <Text> imagem carregada adicione um texto e envie para poder ver</Text> : <Text> Carregando imagem </Text> }
+                    </>
+                   :
+                   <>
+                    <TouchableOpacity style={styled.menuItem} activeOpacity={0.7} onPress={ () => chooiceImage()} >
+                            <Feather name='camera' size={30} color={theme.colors.white} />
+                            <Text style={styled.menuItemText} >Adicionar uma foto</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styled.menuItem} activeOpacity={0.7} onPress={ () => { alert('Error 1203'), setOpen(false) }} >
+                            <FontAwesome name='microphone' size={30} color={theme.colors.white} />
+                            <Text style={styled.menuItemText} >Adicionar um audio</Text>
+                    </TouchableOpacity>
+                   </>
+                    }
+                   
                 </View>
             </View>
         </Modal>
