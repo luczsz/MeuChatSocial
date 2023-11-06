@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TextInput, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../../context/auth';
 
-import { styles } from './style';
-import { Feather } from '@expo/vector-icons';
+import { styles, styled } from './style';
+import { Feather, FontAwesome } from '@expo/vector-icons';
 import { theme } from '../../../global/theme';
 
 import { conversas } from '../../../components/list';
@@ -28,6 +28,9 @@ export default function Community() {
     const [image, setImage] = useState(null);
     const [mensagem, setMensagem] = useState(null);
     const [mensageImage, setMensageImage] = useState(null);
+
+    const [open, setOpen] = useState(false);
+    const [assets, setAssets] = useState(false);
     
     useEffect( () => {
         async function loadDados(){
@@ -50,7 +53,7 @@ export default function Community() {
                 };
     
                 setDados( oldArray => [...oldArray, list]);
-                console.log(list);
+                //console.log(list);
               })
             })
         };
@@ -120,13 +123,49 @@ export default function Community() {
                 autoCorrect={false}
                 autoCapitalize='none'
                 value={mensagem}
-                onChangeText={ (text) => setMensagem(text)}
+                onChangeText={ (text) => {setMensagem(text), setAssets(true)}}
            />        
+
+            {assets ?
+                <></>
+                :
+                <TouchableOpacity style={styles.submit} onPress={ () => setOpen(true)} >
+                    <Feather name='paperclip' size={22} color={theme.colors.white} />
+                </TouchableOpacity>
+            }
+
            <TouchableOpacity style={styles.submit} onPress={ () => sendMensage()} >
             <Feather name='send' size={22} color={theme.colors.white} />
            </TouchableOpacity>
             
         </View>
+
+
+        <Modal 
+            visible={open}
+            onRequestClose={ () => setOpen(false)}
+            animationType='fade'
+            transparent={true}
+        >
+            <View style={styled.containerModal} >
+                <View style={styled.card} >
+                   <TouchableOpacity activeOpacity={0.7} onPress={ () => setOpen(false)} >
+                        <Feather name='x' size={30} color={theme.colors.three} />
+                   </TouchableOpacity>
+                   
+                   <TouchableOpacity style={styled.menuItem} activeOpacity={0.7} >
+                        <Feather name='camera' size={30} color={theme.colors.white} />
+                        <Text style={styled.menuItemText} >Adicionar uma foto</Text>
+                   </TouchableOpacity>
+
+                   <TouchableOpacity style={styled.menuItem} activeOpacity={0.7} >
+                        <FontAwesome name='microphone' size={30} color={theme.colors.white} />
+                        <Text style={styled.menuItemText} >Adicionar uma foto</Text>
+                   </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>
+
    </View>
   );
 }

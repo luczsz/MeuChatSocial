@@ -14,9 +14,9 @@ export default function ListSolicitation({data, add}) {
                 <Feather name='check' size={20} color={theme.colors.white} />  
             </TouchableOpacity>
             
-            <TouchableOpacity style={styles.delete} >
+            {/* <TouchableOpacity style={styles.delete} >
                 <Feather name='x-square' size={20} color={theme.colors.white} />  
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
 
    </TouchableOpacity>

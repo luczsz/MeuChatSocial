@@ -65,4 +65,33 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 12,
     }
+});
+
+export const styled = StyleSheet.create({
+    containerModal:{
+        flex: 1,
+        backgroundColor: theme.colors.overlay,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    card:{
+        backgroundColor: theme.colors.white,
+        width: '70%',
+        padding: 10,
+        borderRadius: 12,
+        gap: 10,
+    },
+    menuItem:{
+        backgroundColor: theme.colors.three,
+        padding: 8,
+        borderRadius: 12,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+    },
+    menuItemText:{
+        fontSize: 16,
+        fontFamily: theme.fonts.bold,
+        color: theme.colors.white,
+    }
 })

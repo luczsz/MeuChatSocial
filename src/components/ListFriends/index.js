@@ -9,7 +9,7 @@ export default function ListFriends({data}) {
         <Image source={{uri: data.url }} style={styles.logo} />
         <Text style={styles.title} numberOfLines={1} > {data.nome} </Text>
 
-        <View style={{ gap: 10, flexDirection: 'row'}} >
+       {/*  <View style={{ gap: 10, flexDirection: 'row'}} >
             <TouchableOpacity style={styles.chat} >
                 <Feather name='message-square' size={20} color={theme.colors.white} />  
             </TouchableOpacity>
@@ -17,7 +17,7 @@ export default function ListFriends({data}) {
             <TouchableOpacity style={styles.delete} >
                 <Feather name='trash-2' size={20} color={theme.colors.white} />  
             </TouchableOpacity>
-        </View>
+        </View> */}
 
    </TouchableOpacity>
   );
