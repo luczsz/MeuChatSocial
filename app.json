@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#00AE65"
-      }
+      },
+      "package": "com.lucz.sz.meuChat"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "52fc616c-d45b-4dd8-902c-bf127a130887"
+      }
     }
   }
 }
