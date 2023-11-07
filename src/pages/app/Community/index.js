@@ -1,7 +1,9 @@
-import React, {useState, useEffect, useContext} from 'react';
-import { View, Text, FlatList, TouchableOpacity, TextInput, Modal, ActivityIndicator } from 'react-native';
+import React, {useState, useEffect, useContext, useRef} from 'react';
+import { View, Text, FlatList, TouchableOpacity, TextInput, Modal, ActivityIndicator, Keyboard, Image, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../../context/auth';
+import { format } from 'date-fns';
+
 
 import { styles, styled } from './style';
 import { Feather, FontAwesome } from '@expo/vector-icons';
@@ -36,6 +38,11 @@ export default function Community() {
     const [open, setOpen] = useState(false);
     const [assets, setAssets] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const timestamp = format(new Date(), 'T');
+    const FlatListRef = useRef(null);
+
+    const ChoiceImage = 'https://wallpaperaccess.com/full/2224374.jpg'
     
     useEffect( () => {
 
@@ -63,8 +70,9 @@ export default function Community() {
                     image: dados.image,
                     mensage: dados.mensage,
                     mensageImage: dados.mensageImage,
+                    time: dados.time,
                 };
-    
+                
                 setDados( oldArray => [...oldArray, list]);
                 //console.log(list);
               })
@@ -86,6 +94,19 @@ export default function Community() {
         loadDados();
         generationID();
     },[]);
+
+    //Ramdom id 
+    function generationID(){
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let newRandomId = '';
+
+        for (let i = 0; i < 8; i++) {
+            const randomIndex = Math.floor(Math.random() * chars.length);
+            newRandomId += chars.charAt(randomIndex);
+          }
+      
+          setId(newRandomId);
+    };
     
     //Adicionar mensagem
     async function sendMensage() {
@@ -97,20 +118,27 @@ export default function Community() {
             type: user.id, //uri do user !== uri do enviado
             username: user.nome,
             image: user.url, 
-            mensage: mensagem,
+            mensage: mensagem || 'null',
             mensageImage: mensageImage || 'null',
+            time: timestamp,
         };
     
         set(dataRef, data)
         .then( () => {
             setMensagem('');
+            Keyboard.dismiss();
             setAssets(false);
+            generationID();
         })
         .catch( (error) => {
+            Keyboard.dismiss();
             alert('Deu erro' + error);
         })
   
     };
+
+    const sortedMessages = Object.values(dados).sort((a, b) => parseInt(a.time, 10) - parseInt(b.time, 10));
+
 
     // Função para chamar a camera
     async function chooiceImage() {
@@ -179,15 +207,21 @@ export default function Community() {
             </TouchableOpacity>
             <Text style={styles.title} >Comunidade</Text>          
         </View>
-        <View style={styles.content} >
+
+        <ImageBackground source={{uri: ChoiceImage }}  style={styles.content} >
+           
             <FlatList
-                data={dados}
+                ref={FlatListRef}
+                data={sortedMessages}
                 keyExtractor={ (item) => item.id}
                 renderItem={({item}) => <MensageSend data={item} /> }
                 ListEmptyComponent={ <Text style={{color: 'white'}} > Sem novas mensagens na comunidade</Text>}
+                ListFooterComponent={<View style={{ marginBottom: 120, }} />}
+                
             />     
 
-        </View>
+        </ImageBackground>
+
         <View style={styles.button} >
            <TextInput
                 placeholder='Digite sua mensagem'
@@ -220,17 +254,32 @@ export default function Community() {
             animationType='fade'
             transparent={true}
         >
-            <View style={styled.containerModal} >
+            <TouchableOpacity onPress={() => setOpen(false)} style={styled.containerModal} >
                 <View style={styled.card} >
                    <TouchableOpacity activeOpacity={0.7} onPress={ () => setOpen(false)} >
-                        <Feather name='x' size={30} color={theme.colors.three} />
+                        
                         <Text style={styled.menuItemText} >Adicionar uma foto</Text>
                    </TouchableOpacity>
 
                    { loading ? 
                     <>
-                        <ActivityIndicator size={'large'} color={theme.colors.three} />
-                        {progress === '100%' ? <Text> imagem carregada adicione um texto e envie para poder ver</Text> : <Text> Carregando imagem </Text> }
+                        {progress === '100%' ? 
+                            <>
+                                <Image source={{uri: mensageImage}} style={{width: 200, height: 200, alignSelf: 'center'}} /> 
+
+                                <TouchableOpacity style={styled.menuItem} activeOpacity={0.7} onPress={ () => setOpen(false)} >
+                                    <FontAwesome name='send-o' size={25} color={theme.colors.white} />
+                                    <Text style={styled.menuItemText} >SUA IMAGEM FOI ENVIADA</Text>
+                                </TouchableOpacity>
+                                <Text style={{color: 'red', marginBottom: 10,}} >CLIQUE NO BOTÃO ACIMA E DIGITE UM TEXTO PARA SUA IMAGEM OU ABERTE EM ENVIAR PARA ENVIAR SUA IMAGEM</Text>
+                            </>
+                            : 
+                            <>
+                                <ActivityIndicator size={'large'} color={theme.colors.three} />
+                                <Text> Carregando imagem </Text> 
+                            </>
+                            
+                            }
                     </>
                    :
                    <>
@@ -247,7 +296,7 @@ export default function Community() {
                     }
                    
                 </View>
-            </View>
+            </TouchableOpacity>
         </Modal>
 
    </View>

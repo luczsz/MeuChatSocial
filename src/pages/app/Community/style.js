@@ -9,12 +9,9 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     content:{
-        padding: 10,
+        backgroundColor: 'red',
         flex: 1,
         width: '100%',
-        marginTop: 20,
-        gap: 10,
-
     },
     header:{
         marginTop: 32,
@@ -24,10 +21,11 @@ export const styles = StyleSheet.create({
         gap: 10,
         height: 60,
         width: '100%',
-        borderWidth: 2,
+        borderBottomWidth: 2,
         borderBottomColor: theme.colors.three,
     },
     button:{
+        backgroundColor: 'rgba(0,0,0,0.4)',
         flexDirection: 'row',
         height: '14%',
         width: '100%',
@@ -36,6 +34,8 @@ export const styles = StyleSheet.create({
         paddingLeft: 14,
         paddingRight: 14,
         gap: 10,
+        position: 'absolute',
+        bottom: 0,
     },
     logo:{
         width: 200,
@@ -77,9 +77,12 @@ export const styled = StyleSheet.create({
     card:{
         backgroundColor: theme.colors.white,
         width: '70%',
+        height: '42%',
         padding: 10,
         borderRadius: 12,
         gap: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     menuItem:{
         backgroundColor: theme.colors.three,

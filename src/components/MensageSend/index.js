@@ -3,13 +3,16 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { theme } from '../../global/theme';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../context/auth';
+import { format } from 'date-fns';
 
 
 export default function MensageSend({ data }) {
-  const { type, mensage, username, mensageImage } = data;
+  const { type, mensage, username, mensageImage, time } = data;
 
   const navigation = useNavigation();
   const { user } = useContext(AuthContext);
+  const mensageTime = new Date(parseInt(time, 10));
+  const formatTime = format(mensageTime, 'HH:mm');
 
   function redirect(data){
     navigation.navigate('Perfil', data);
@@ -22,7 +25,8 @@ export default function MensageSend({ data }) {
         <View style={styles.send}>
           <Text style={styles.userName} >{username}</Text>
           {mensageImage === 'null'? <></> : <Image source={{uri: mensageImage}} style={styles.images} /> }
-          <Text style={styles.textMensage} >{mensage}</Text>
+          {mensage === 'null' ? <></> :  <Text style={styles.textMensage} >{mensage}</Text>  }
+          <Text style={{color: theme.colors.white, fontSize: 14, fontFamily: theme.fonts.regular, alignSelf: 'flex-end'}} > {formatTime} </Text>
         </View>
         <TouchableOpacity onPress={() => redirect(data)} >
           <Image source={{uri: data.image}} style={styles.imgs} />
@@ -43,7 +47,8 @@ export default function MensageSend({ data }) {
         <View style={styles.reseived}>
           <Text style={styles.userNameReceived} >{username}</Text>
           {mensageImage === 'null'? <></> : <Image source={{uri: mensageImage}} style={styles.images} /> }
-          <Text style={styles.textMensage} >{mensage}</Text>
+          {mensage === 'null' ? <></> :  <Text style={styles.textMensage} >{mensage}</Text>  }  
+          <Text style={{color: theme.colors.white, fontSize: 14, fontFamily: theme.fonts.regular, alignSelf: 'flex-end'}} > {formatTime} </Text>
         </View>
 
       </View>
@@ -62,7 +67,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#007AFF", // Cor do balão da mensagem "Send"
     borderRadius: 10,
     padding: 8,
-    marginVertical: 4,
     maxWidth: "80%", // Largura máxima do balão da mensagem
   },
 
@@ -105,7 +109,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     borderRadius: 10,
     padding: 8,
-    marginVertical: 4,
+    gap: 10,
     maxWidth: "80%", // Largura máxima do balão da mensagem
   },
   
@@ -114,7 +118,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     borderRadius: 10,
     padding: 8,
-    marginVertical: 4,
+    gap: 10,
     maxWidth: "80%", // Largura máxima do balão da mensagem
   },
 
@@ -131,5 +135,5 @@ const styles = StyleSheet.create({
     height: 300,
     marginTop: 10,
     
-  }
+  },
 });
