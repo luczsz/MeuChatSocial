@@ -1,8 +1,10 @@
-import React, {useState, useEffect, useContext, useRef} from 'react';
+import React, {useState, useEffect, useContext, useRef, useLayoutEffect} from 'react';
 import { View, Text, FlatList, TouchableOpacity, TextInput, Modal, ActivityIndicator, Keyboard, Image, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../../context/auth';
 import { format } from 'date-fns';
+
+import { GiftedChat } from 'react-native-gifted-chat';
 
 
 import { styles, styled } from './style';
@@ -26,6 +28,7 @@ export default function Community() {
     const { user } = useContext(AuthContext);
 
     const [dados, setDados] = useState([]);
+    const [scroll, setScroll] = useState(false);
     
     const [id, setId] = useState(null);
     const [type, setType] = useState(null);
@@ -75,6 +78,7 @@ export default function Community() {
                 
                 setDados( oldArray => [...oldArray, list]);
                 //console.log(list);
+                setScroll(true);
               })
             })
         };
@@ -94,6 +98,7 @@ export default function Community() {
         loadDados();
         generationID();
     },[]);
+
 
     //Ramdom id 
     function generationID(){
@@ -209,16 +214,24 @@ export default function Community() {
         </View>
 
         <ImageBackground source={{uri: ChoiceImage }}  style={styles.content} >
-           
-            <FlatList
-                ref={FlatListRef}
-                data={sortedMessages}
-                keyExtractor={ (item) => item.id}
-                renderItem={({item}) => <MensageSend data={item} /> }
-                ListEmptyComponent={ <Text style={{color: 'white'}} > Sem novas mensagens na comunidade</Text>}
-                ListFooterComponent={<View style={{ marginBottom: 120, }} />}
+
+            {scroll ? 
+                <>
+                    <Text style={{color: 'white'}}>SEM LISTA</Text>   
+                    <GiftedChat
+                        messages={sortedMessages}
+                        user={{
+                            _id: 1,
+                          }}    
+                    />
                 
-            />     
+                </>
+                :
+                <ActivityIndicator size={'large'} color={theme.colors.white} />
+
+            }
+
+
 
         </ImageBackground>
 

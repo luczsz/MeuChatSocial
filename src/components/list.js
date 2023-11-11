@@ -90,3 +90,26 @@ export const onlyChat = [
     mensageImage: 'null',
   },
 ];
+
+export const chatGrad = [
+  {
+    _id: '002',
+    createdAt: '09',
+    text: 'Uma mensagem',
+    user:{
+      _id: '002',
+      name: 'React Native',
+      avatar: 'https://placeimg.com/140/140/any',
+    } 
+  },
+  {
+    _id: '003',
+    createdAt: '09',
+    text: 'Uma mensagem',
+    user:{
+      _id: '003',
+      name: 'React Native',
+      avatar: 'https://placeimg.com/140/140/any',
+    } 
+  },
+]

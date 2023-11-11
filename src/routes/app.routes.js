@@ -7,7 +7,7 @@ import { theme } from "../global/theme";
 import HeaderMenu from "../components/HeaderMenu";
 
 const AppStack = createNativeStackNavigator();
-const TopStack = createMaterialTopTabNavigator()
+const TopStack = createMaterialTopTabNavigator();
  
 import Home from "../pages/app/Home";
 import Community from "../pages/app/Community";
@@ -17,7 +17,10 @@ import Solicitation from "../pages/app/Solicitation";
 import ChatSolo from "../pages/app/ChatSolo";
 import Profile from "../pages/app/Profile";
 
+import Chat from "../pages/app/Community/chat";
+
 export default function AppRoutes(){
+
 
     function TopMenu(){
         return(
@@ -44,7 +47,7 @@ export default function AppRoutes(){
                 <TopStack.Screen name="Solicitações" component={Solicitation} />
             </TopStack.Navigator>
         )
-    }
+    };
 
     return(
         <AppStack.Navigator>
@@ -58,7 +61,7 @@ export default function AppRoutes(){
            
             <AppStack.Screen
                 name="Comunidade"
-                component={Community}
+                component={Chat}
                 options={{
                     headerShown: false,
                 }}
