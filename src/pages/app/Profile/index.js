@@ -19,7 +19,7 @@ export default function Profile() {
     const navigation = useNavigation();
     const { user } = useContext(AuthContext);
     const route = useRoute();
-    const { username, image, type } = route.params;
+    const { username, image, type, email } = route.params;
 
     const [dados, setDados] = useState([]);
     const [state, setState] = useState(null);
@@ -109,38 +109,22 @@ export default function Profile() {
         </View>
         <Image source={{uri: image}} style={styles.logo} />
         <Text style={styles.title} > {username} </Text>
-        <Text style={styles.subTitle} >email@email.com</Text>
-        <Text style={styles.subTitle} > id amigo:  {type} </Text>
-        <Text style={styles.subTitle} > identificador: {id} </Text>
-        <Text style={styles.subTitle} > Você: {user.id} </Text>
+        <Text style={styles.subTitle} > {email} </Text>
+        
       
         <View style={styles.content} >
-          
-          {enviado ?
+
             <TouchableOpacity style={styles.comunityRequest} activeOpacity={0.7} onPress={ () => alert('aguarde seu amigo, lhe aceitar')} >
                 <Feather name='coffee' size={30} color={theme.colors.white} />
-                <Text style={styles.title} >Solicitação enviada</Text>
-            </TouchableOpacity>
-            :
-            <TouchableOpacity style={styles.comunity} activeOpacity={0.7} onPress={ () => sendMensage()} >
-                <Feather name='user-plus' size={30} color={theme.colors.white} />
-                <Text style={styles.title} >Adicionar como amigo</Text>
+                <Text style={styles.title} numberOfLines={1} > Em desenvolvimento</Text>
             </TouchableOpacity>
 
-          }
+            <TouchableOpacity style={styles.chatRequest} activeOpacity={0.7} onPress={ () => alert('Vocês ainda não são amigos')} >
+                <Feather name='message-square' size={30} color={theme.colors.white} />
+            </TouchableOpacity>
 
 
 
-
-            {state ?
-                <TouchableOpacity style={styles.chat} activeOpacity={0.7} onPress={ () => navigation.navigate('Friends')} >
-                    <Feather name='message-square' size={30} color={theme.colors.white} />
-                </TouchableOpacity>
-                :
-                <TouchableOpacity style={styles.chatRequest} activeOpacity={0.7} onPress={ () => alert('Vocês ainda não são amigos')} >
-                    <Feather name='message-square' size={30} color={theme.colors.white} />
-                </TouchableOpacity>
-            }
         </View>
    </View>
   );

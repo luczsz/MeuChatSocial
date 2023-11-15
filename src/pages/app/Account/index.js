@@ -14,7 +14,7 @@ export default function Account() {
 
     const addImage = 'https://image.lexica.art/full_jpg/19f280a2-2b97-4be2-b782-1fd5c70b84f4';
     const navigation = useNavigation();
-    const { signOut } = useContext(AuthContext);
+    const { user, signOut } = useContext(AuthContext);
 
  return (
    <View style={styles.container} >
@@ -27,9 +27,9 @@ export default function Account() {
 
             </View>
         </View>
-        <Image source={{uri: addImage}} style={styles.logo} />
-        <Text style={styles.title} >Lucas Souz</Text>
-        <Text style={styles.subTitle} >email@email.com</Text>
+        <Image source={{uri: user.url}} style={styles.logo} />
+        <Text style={styles.title} > {user.nome} </Text>
+        <Text style={styles.subTitle} > {user.email} </Text>
         <View style={styles.content} >
             <TouchableOpacity style={styles.comunity} activeOpacity={0.7} onPress={ () => navigation.navigate('Friends')} >
                 <Feather name='users' size={30} color={theme.colors.white} />

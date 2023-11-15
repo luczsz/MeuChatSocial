@@ -99,3 +99,49 @@ export const styled = StyleSheet.create({
     }
 });
 
+export const styling = StyleSheet.create({
+    containerModal:{
+        flex: 1,
+        backgroundColor: theme.colors.two,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    content:{
+        flex: 1,
+        width: '100%',
+    },
+    header:{
+        paddingLeft: 14,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+        height: 60,
+        width: '100%',
+        borderBottomWidth: 2,
+        borderBottomColor: theme.colors.three,
+    },
+    input:{
+        width: '100%',
+        height: 80,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 14,
+        gap: 10,
+        flexDirection: 'row',
+    },
+    inputs:{
+        borderColor: theme.colors.three,
+        borderWidth: 2,
+        width: '90%',
+        height: 60,
+        paddingLeft: 16,
+        borderRadius: 8,
+        fontFamily: theme.fonts.regular,
+        color: theme.colors.white,
+    },
+    image:{
+        width: '100%',
+        height: '98%',
+    }
+})
+

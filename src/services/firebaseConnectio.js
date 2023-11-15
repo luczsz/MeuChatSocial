@@ -6,7 +6,6 @@ import { getStorage } from 'firebase/storage'; // Importe a função getStorage 
 import { getFirestore } from "firebase/firestore";
 
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyDL_JbnvxBtLaKcd2VQbn9LyTiUOTP_Lvk",
   authDomain: "movie4pps.firebaseapp.com",
