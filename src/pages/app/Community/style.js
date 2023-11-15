@@ -97,4 +97,5 @@ export const styled = StyleSheet.create({
         fontFamily: theme.fonts.bold,
         color: theme.colors.white,
     }
-})
+});
+

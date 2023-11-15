@@ -17,7 +17,7 @@ import Solicitation from "../pages/app/Solicitation";
 import ChatSolo from "../pages/app/ChatSolo";
 import Profile from "../pages/app/Profile";
 
-import Chat from "../pages/app/Community/chat";
+import Chats from "../pages/app/Community/chat";
 
 export default function AppRoutes(){
 
@@ -61,7 +61,7 @@ export default function AppRoutes(){
            
             <AppStack.Screen
                 name="Comunidade"
-                component={Chat}
+                component={Chats}
                 options={{
                     headerShown: false,
                 }}
