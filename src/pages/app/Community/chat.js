@@ -78,11 +78,11 @@ export default function Chats() {
       return (
         <Send 
           {...props}
-          containerStyle={{justifyContent: 'center', right: 2}}
+          containerStyle={{ width: 60, height: 50, alignItems:'center',  justifyContent: 'center',}}
         >
-          <TouchableOpacity style={{ marginRight: 10, marginBottom: 5 }}>
-            <AntDesign name="arrowup"  size={24} color={theme.colors.three} />
-          </TouchableOpacity>
+          <View style={{ backgroundColor: theme.colors.three, padding: 10, borderRadius: 12,}}>
+            <AntDesign name="arrowup"  size={24} color={theme.colors.white} />
+          </View>
         </Send>
       );
     };
@@ -242,8 +242,6 @@ export default function Chats() {
       navigation.navigate('Perfil', list);
     };
     
-    
-
 
  return (
   <View style={{ backgroundColor: theme.colors.one,  flex: 1,}} >
