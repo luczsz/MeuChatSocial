@@ -87,7 +87,7 @@ export default function Home() {
                     data={dados}
                     keyExtractor={ (item) => item.id}
                     renderItem={ ({item}) => <ListChatUnity data={item} chat={redirect} /> }
-                    ListEmptyComponent={ <Text style={{color: 'white'}} > Sem dados na lista</Text>}
+                    ListEmptyComponent={ <Text style={{color: 'white'}} > Você ainda não tem chats</Text>}
                 />
             </View>
         </View>

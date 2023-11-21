@@ -7,11 +7,13 @@ export const styles = StyleSheet.create({
         backgroundColor: theme.colors.one,
     },
     content:{
-        padding: 10,
         flex: 1,
         width: '100%',
         marginTop: 20,
         gap: 10,
+
+        alignItems: 'center',
+        justifyContent: 'center',
 
     },
     header:{
@@ -45,6 +47,10 @@ export const styles = StyleSheet.create({
         borderColor: theme.colors.three,
         borderWidth: 2,
     },
+    ImageChats:{
+        width: 290,
+        height: 290,
+    },
     title:{
         fontSize: 18,
         fontFamily: theme.fonts.bold,
@@ -68,5 +74,19 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 12,
+    },
+    Submit:{
+        backgroundColor: theme.colors.three,
+        width: '80%',
+        height: 60,
+
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 12,
+    },
+    submitText:{
+        fontSize: 22,
+        fontFamily: theme.fonts.bold,
+        color: theme.colors.one,
     }
 })
