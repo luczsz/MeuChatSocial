@@ -230,6 +230,7 @@ export default function Chats() {
       setLoad(false);
     }, [setMessages]); // Certifica-se de incluir todas as dependências necessárias
 
+    //Clicando no perfil
     const handleAvatarPress = (user) => {
       let list = {
         username: user.nome,
@@ -250,7 +251,7 @@ export default function Chats() {
                 <Feather name='arrow-left' size={30} color={theme.colors.three} />
             </TouchableOpacity>
             <Text style={styles.title} >Comunidade</Text>          
-        </View>
+    </View>
     <GiftedChat
       messages={messages}
       showAvatarForEveryMessage={false}

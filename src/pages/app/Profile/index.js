@@ -19,7 +19,7 @@ export default function Profile() {
     const navigation = useNavigation();
     const { user } = useContext(AuthContext);
     const route = useRoute();
-    const { username, image, type, email } = route.params;
+    const { username, image, email } = route.params;
 
     const [dados, setDados] = useState([]);
     const [state, setState] = useState(null);
@@ -96,6 +96,16 @@ export default function Profile() {
   
     };
 
+    //Enviando mensagem privada
+    function privateMessege(){
+        let list = {
+            nome: username,
+            image: image,
+            id: id,
+        };
+        navigation.navigate('Chat', list);
+    }
+
  return (
    <View style={styles.container} >
         <View style={styles.header}>
@@ -107,6 +117,7 @@ export default function Profile() {
 
             </View>
         </View>
+
         <Image source={{uri: image}} style={styles.logo} />
         <Text style={styles.title} > {username} </Text>
         <Text style={styles.subTitle} > {email} </Text>
@@ -119,7 +130,7 @@ export default function Profile() {
                 <Text style={styles.title} numberOfLines={1} > Em desenvolvimento</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.chatRequest} activeOpacity={0.7} onPress={ () => alert('Vocês ainda não são amigos')} >
+            <TouchableOpacity style={styles.chatRequest} activeOpacity={0.7} onPress={ () => privateMessege()} >
                 <Feather name='message-square' size={30} color={theme.colors.white} />
             </TouchableOpacity>
 

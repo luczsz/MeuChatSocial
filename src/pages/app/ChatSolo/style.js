@@ -5,8 +5,6 @@ export const styles = StyleSheet.create({
     container:{
         flex: 1,
         backgroundColor: theme.colors.one,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     content:{
         padding: 10,
@@ -26,7 +24,7 @@ export const styles = StyleSheet.create({
         gap: 10,
         height: 60,
         width: '100%',
-        borderWidth: 2,
+        borderBottomWidth: 2,
         borderBottomColor: theme.colors.three,
     },
     button:{
@@ -40,8 +38,12 @@ export const styles = StyleSheet.create({
         gap: 10,
     },
     logo:{
-        width: 200,
-        height: 200,
+        width: 45,
+        height: 45,
+
+        borderRadius: 44,
+        borderColor: theme.colors.three,
+        borderWidth: 2,
     },
     title:{
         fontSize: 18,

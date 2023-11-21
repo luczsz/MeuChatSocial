@@ -28,7 +28,7 @@ export default function Home() {
 
     useEffect( () => {
         async function loadDados(){
-            const dataRef = ref(database, `meuChats/`);
+            const dataRef = ref(database, `chatPrivate/${user.id}`);
     
             onValue(dataRef, (snap) => {
               setDados([]);
@@ -39,8 +39,9 @@ export default function Home() {
                 
                 let list = {
                   key: childItem.key,
-                  nome: dados.nome,
-                  url: dados.url,
+                  username: dados.username,
+                  image: dados.image,
+                  id: dados.id,
                 };
     
                 setDados( oldArray => [...oldArray, list]);
