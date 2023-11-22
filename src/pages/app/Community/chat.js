@@ -54,15 +54,15 @@ export default function Chats() {
     //Analisar mensagens antigas
     useLayoutEffect(() => {
       const firestore = getFirestore();
-
+    
       const collectionRef = collection(firestore, 'chats');
       const q = query(collectionRef, orderBy('createdAt', 'desc'));
-
+    
       const unsubscribe = onSnapshot(q, querySnapshot => {
-      //console.log('querySnapshot unsusbscribe');
+        console.log('querySnapshot unsubscribe');
         setMessages(
           querySnapshot.docs.map(doc => ({
-            _id: doc.data()._id,
+            _id: doc.id,
             createdAt: doc.data().createdAt.toDate(),
             text: doc.data().text,
             user: doc.data().user,
@@ -70,8 +70,13 @@ export default function Chats() {
           }))
         );
       });
-  return unsubscribe;
+    
+      return () => {
+        console.log('Cleaning up listener');
+        unsubscribe();
+      };
     }, []);
+     
 
     //Customizar o botão de enviar
     const CustomSendButton = (props) => {
@@ -275,7 +280,6 @@ export default function Chats() {
       renderActions={ props => <CurstomAction {...props} />}
       placeholder='Digite sua mensagem...'
       onPressAvatar={handleAvatarPress} // A função que será chamada ao pressionar o avatar
- 
     />
 
     <Modal
