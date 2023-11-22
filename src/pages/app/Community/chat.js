@@ -59,7 +59,7 @@ export default function Chats() {
       const q = query(collectionRef, orderBy('createdAt', 'desc'));
 
       const unsubscribe = onSnapshot(q, querySnapshot => {
-      console.log('querySnapshot unsusbscribe');
+      //console.log('querySnapshot unsusbscribe');
         setMessages(
           querySnapshot.docs.map(doc => ({
             _id: doc.data()._id,
@@ -233,13 +233,11 @@ export default function Chats() {
     //Clicando no perfil
     const handleAvatarPress = (user) => {
       let list = {
-        username: user.nome,
         id: user.keyUser,
-        image: user.avatar,
+        username: user.nome,
         email: user.email,
-
+        image: user.avatar,
       }
-      console.log(user);
       navigation.navigate('Perfil', list);
     };
     
