@@ -11,13 +11,14 @@ import { theme } from '../../../global/theme';
 export default function SignIn() {
 
   const navigation = useNavigation();
-  const { signIn, loading } = useContext(AuthContext);
+  const { signIn, loading, autenticar } = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
     function logarUser(){
         signIn(email, senha);
+        //autenticar(email, senha);
     }
 
  return (

@@ -36,7 +36,7 @@ export default function Solicitation() {
             };
 
             setDados( oldArray => [...oldArray, list]);
-            console.log(list);
+            //console.log(list);
           })
         })
       };
@@ -47,8 +47,9 @@ export default function Solicitation() {
 
 //Função para adicionar o amigo
 async function addFriend(date) {
-    
-  const dataRef = ref(database, `friend/${user.id}/${date.type}`);
+  
+  
+  const dataRef = ref(database, `amigos/${user.id}/${date.type}`);
 
     let list = {
         id: date.id,
@@ -58,11 +59,29 @@ async function addFriend(date) {
 
     set(dataRef, list)
     .then( () => {
-        console.log('adicionado');
+
+     console.log(date.type + user.id);
+
+     const frindRf = ref(database, `amigos/${date.type}/${user.id}`);
+
+     let lists = {
+       id: date.id,
+       username: user.nome,
+       image: user.url,
+     };
+
+     set(frindRf, lists)
+     .then( () => {
+       console.log('Adicionado B');
+     })
+     .catch( (error) => {
+       console.log('Deu error: ' + error);
+     })
+
     })
     .catch( (error) => {
         console.log('Deu erro' + error);
-    })
+    });
 
 };
 

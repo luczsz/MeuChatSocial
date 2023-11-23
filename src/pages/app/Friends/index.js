@@ -18,7 +18,7 @@ export default function Friends() {
 
   useEffect( () => {
     async function loadDados(){
-        const dataRef = ref(database, `friend/${user.id}`);
+        const dataRef = ref(database, `amigos/${user.id}`);
 
         onValue(dataRef, (snap) => {
           setDados([]);
@@ -29,6 +29,7 @@ export default function Friends() {
             
             let list = {
               key: childItem.key,
+              id: dados.id,
               nome: dados.username,
               url: dados.image,
             };

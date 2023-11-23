@@ -238,7 +238,7 @@ export default function Chats() {
     //Clicando no perfil
     const handleAvatarPress = (user) => {
       let list = {
-        id: user.keyUser,
+        keyUser: user.keyUser,
         username: user.nome,
         email: user.email,
         image: user.avatar,

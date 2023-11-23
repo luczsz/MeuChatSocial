@@ -2,6 +2,7 @@ import React, {useState, useEffect, createContext} from "react";
 
 import { auth, database } from '../services/firebaseConnectio';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createClient } from '@supabase/supabase-js';
 
 //Criando a base 
 import { ref, get, set } from 'firebase/database';
@@ -14,6 +15,11 @@ export default function AuthProvaider({children}){
 
     const [ user, setUser ] = useState(null);
     const [ loading, setLoading ] = useState(false);
+
+    /* const supaURL = 'https://tenyehajhdznhyqitpsg.supabase.co';
+    const supaKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRlbnllaGFqaGR6bmh5cWl0cHNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTg2MzU0NDksImV4cCI6MjAxNDIxMTQ0OX0.D_ww1toOKgv0IxtW9BIr6S2oRhU9pI4m2f3J23BdZ9A';
+
+    const supabase = createClient(supaURL, supaKey ); */
 
     // Analisar dados
         useEffect( () => {
@@ -132,9 +138,28 @@ export default function AuthProvaider({children}){
             await AsyncStorage.setItem('Auth_user', JSON.stringify(data));
         };
     
+    //Siistam supa
+    async function autenticar(email, senha) {
+        try {
+            const { user, error } = await supabase.auth.signIn({
+            email,
+            password: senha,
+            });
+
+            if (error) {
+            console.error('Erro ao autenticar:', error.message);
+            return;
+            }
+
+            console.log('Usuário autenticado:', user);
+        } catch (error) {
+            console.error('Erro inesperado:', error.message);
+        }
+    }
+
 
     return(
-        <AuthContext.Provider value={{ signed: !user, user, loading, signUp, signIn, signOut }} >
+        <AuthContext.Provider value={{ signed: !user, user, loading, signUp, signIn, signOut, autenticar }} >
             {children}
         </AuthContext.Provider>
     );

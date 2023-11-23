@@ -19,7 +19,7 @@ export default function Profile() {
     const navigation = useNavigation();
     const { user } = useContext(AuthContext);
     const route = useRoute();
-    const { username, image, email } = route.params;
+    const { username, image, email, keyUser } = route.params;
 
     const [dados, setDados] = useState([]);
     const [state, setState] = useState(null);
@@ -74,11 +74,17 @@ export default function Profile() {
     
     },[]);
 
+    /* 
+        keyUser - é o ID do usuario que vai receber o request
+        id - é o ID do ROOM ID (por mais estatico que seja ele se torna fixo a partir do momento do request).
+
+
+    */
 
     //Solicitação de amizade
     async function sendMensage() {
     
-        const dataRef = ref(database, `Request/${type}/${id}`);
+        const dataRef = ref(database, `Request/${keyUser}/${id}`);
     
         let data = {
             id: user.id,
@@ -96,16 +102,6 @@ export default function Profile() {
   
     };
 
-    //Enviando mensagem privada
-    function privateMessege(){
-        let list = {
-            nome: username,
-            image: image,
-            id: id,
-        };
-        navigation.navigate('Chat', list);
-    }
-
  return (
    <View style={styles.container} >
         <View style={styles.header}>
@@ -121,20 +117,17 @@ export default function Profile() {
         <Image source={{uri: image}} style={styles.logo} />
         <Text style={styles.title} > {username} </Text>
         <Text style={styles.subTitle} > {email} </Text>
+        <Text style={styles.subTitle} > {keyUser} </Text>
+        <Text style={styles.subTitle} > {id} </Text>
+        <Text style={styles.subTitle} > {user.id} </Text>
         
       
         <View style={styles.content} >
 
-            <TouchableOpacity style={styles.comunityRequest} activeOpacity={0.7} onPress={ () => alert('aguarde seu amigo, lhe aceitar')} >
+            <TouchableOpacity style={styles.comunityRequest} activeOpacity={0.7} onPress={ () => sendMensage()} >
                 <Feather name='coffee' size={30} color={theme.colors.white} />
-                <Text style={styles.title} numberOfLines={1} > Em desenvolvimento</Text>
+                <Text style={styles.title} numberOfLines={1} > Solicitação enviada </Text>
             </TouchableOpacity>
-
-            <TouchableOpacity style={styles.chatRequest} activeOpacity={0.7} onPress={ () => privateMessege()} >
-                <Feather name='message-square' size={30} color={theme.colors.white} />
-            </TouchableOpacity>
-
-
 
         </View>
    </View>
