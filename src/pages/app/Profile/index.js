@@ -69,7 +69,7 @@ export default function Profile() {
         };
 
     
-          loadDados();
+          //loadDados();
           generationID();
     
     },[]);
@@ -117,16 +117,13 @@ export default function Profile() {
         <Image source={{uri: image}} style={styles.logo} />
         <Text style={styles.title} > {username} </Text>
         <Text style={styles.subTitle} > {email} </Text>
-        <Text style={styles.subTitle} > {keyUser} </Text>
-        <Text style={styles.subTitle} > {id} </Text>
-        <Text style={styles.subTitle} > {user.id} </Text>
         
       
         <View style={styles.content} >
 
-            <TouchableOpacity style={styles.comunityRequest} activeOpacity={0.7} onPress={ () => sendMensage()} >
-                <Feather name='coffee' size={30} color={theme.colors.white} />
-                <Text style={styles.title} numberOfLines={1} > Solicitação enviada </Text>
+            <TouchableOpacity style={styles.comunity} activeOpacity={0.7} onPress={ () => sendMensage()} >
+                <Feather name='user-plus' size={30} color={theme.colors.white} />
+                <Text style={styles.title} numberOfLines={1} > Enviar Solicitação </Text>
             </TouchableOpacity>
 
         </View>

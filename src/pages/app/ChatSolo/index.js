@@ -41,7 +41,90 @@ export default function ChatSolo() {
     const [messageImage, setMessageImage] = useState('');
     const [load, setLoad] = useState(false);
     const [door, setDoor] = useState(false);
+
+ 
+    //Analisar mensagens antigas
+      useLayoutEffect(() => {
+      const firestore = getFirestore();
     
+      const collectionRef = collection(firestore, id);
+      const q = query(collectionRef, orderBy('createdAt', 'desc'));
+    
+      const unsubscribe = onSnapshot(q, querySnapshot => {
+        console.log('querySnapshot unsubscribe');
+        setMessages(
+          querySnapshot.docs.map(doc => ({
+            _id: doc.id,
+            createdAt: doc.data().createdAt.toDate(),
+            text: doc.data().text,
+            user: doc.data().user,
+            image: doc.data().image,
+          }))
+        );
+      });
+    
+      return () => {
+        console.log('Cleaning up listener');
+        unsubscribe();
+      };
+      }, []);
+
+   //Enviar mensagem para o firestone     
+      const onSend = useCallback((messages = []) => {
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, messages)
+    );
+    const firestore = getFirestore();
+
+    // setMessages([...messages, ...messages]);
+    const { _id, createdAt, text, user, image } = messages[0];    
+    addDoc(collection(firestore, id), {
+      _id,
+      createdAt,
+      text,
+      user,
+    });
+      }, []);
+
+    //Customizar o botão de enviar
+      const CustomSendButton = (props) => {
+      return (
+        <Send 
+          {...props}
+          containerStyle={{ width: 60, height: 50, alignItems:'center',  justifyContent: 'center',}}
+        >
+          <View style={{ backgroundColor: theme.colors.three, padding: 10, borderRadius: 12,}}>
+            <AntDesign name="arrowup"  size={24} color={theme.colors.white} />
+          </View>
+        </Send>
+      );
+      };
+
+    //Customizar as bolhas de chat
+      const CustomBubble = (props) => {
+      return (
+        <Bubble
+          {...props}
+          timeTextStyle={{
+            right: { color: 'white' },
+            left: { color: 'white' }
+          }}
+          textStyle={{
+            right: { color: 'white', fontFamily: theme.fonts.regular },
+            left: { color: 'white', fontFamily: theme.fonts.regular }
+          }}
+          wrapperStyle={{
+            right: {
+              backgroundColor: theme.colors.three, // Cor da bubble para mensagens enviadas pelo usuário
+              
+            },
+            left: {
+              backgroundColor: theme.colors.two, // Cor da bubble para mensagens recebidas
+            },
+          }}
+        />
+      );
+      };
 
 
  return (
@@ -57,7 +140,32 @@ export default function ChatSolo() {
             <Image source={{ uri: image }} style={styles.logo} />
 
         </View>
-        <Text style={{color: 'white'}} > ABERTO + {id} </Text>
+        <GiftedChat
+          messages={messages}
+          showAvatarForEveryMessage={false}
+          showUserAvatar={false}
+          onSend={messages => onSend(messages)}
+          messagesContainerStyle={{
+            backgroundColor: theme.colors.one,
+          }}
+          textInputStyle={{
+            fontFamily: theme.fonts.regular,
+            color: theme.colors.three,
+          }}
+          
+          user={{
+            _id: user.email,
+            avatar: user.url,
+            nome: user.nome,
+            email: user.email,
+            keyUser: user.id,
+          }}
+          renderBubble={props => <CustomBubble {...props} />}
+          renderSend={props => <CustomSendButton {...props} />}
+          //renderActions={ props => <CurstomAction {...props} />}
+          placeholder='Digite sua mensagem...'
+          //onPressAvatar={handleAvatarPress} // A função que será chamada ao pressionar o avatar
+        />
 
    </View>
   );

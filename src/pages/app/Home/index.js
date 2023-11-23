@@ -23,8 +23,8 @@ export default function Home() {
     const [dados, setDados] = useState([]);
 
     function redirect(data){
-        alert(data.id);
-        //navigation.navigate('Chat', data);
+        console.log(data);
+        navigation.navigate('Chat', data);
     };
 
     useEffect( () => {
