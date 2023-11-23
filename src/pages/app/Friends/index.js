@@ -78,7 +78,7 @@ export default function Friends() {
           const privateRf = ref(database, `chatPrivate/${keyUser}/${id}`);
 
           let list = {
-            id: user.id,
+            id: id,
             nome: user.nome,
             url: user.url
           };
