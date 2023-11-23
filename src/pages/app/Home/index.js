@@ -23,7 +23,8 @@ export default function Home() {
     const [dados, setDados] = useState([]);
 
     function redirect(data){
-        navigation.navigate('Chat', data);
+        alert(data.id);
+        //navigation.navigate('Chat', data);
     };
 
     useEffect( () => {
@@ -39,8 +40,8 @@ export default function Home() {
                 
                 let list = {
                   key: childItem.key,
-                  username: dados.username,
-                  image: dados.image,
+                  username: dados.nome,
+                  image: dados.url,
                   id: dados.id,
                 };
     

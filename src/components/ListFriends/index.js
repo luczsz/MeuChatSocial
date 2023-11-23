@@ -3,9 +3,9 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { theme } from '../../global/theme';
 import { Feather } from '@expo/vector-icons';
 
-export default function ListFriends({data}) {
+export default function ListFriends({data, handleOpen}) {
  return (
-   <TouchableOpacity activeOpacity={0.8} style={styles.container} onPress={ () => alert(data.id)} >
+   <TouchableOpacity activeOpacity={0.8} style={styles.container} onPress={ () => handleOpen(data)} >
         <Image source={{uri: data.url }} style={styles.logo} />
         <Text style={styles.title} numberOfLines={1} > {data.nome} </Text>
 
