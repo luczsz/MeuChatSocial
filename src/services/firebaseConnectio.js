@@ -7,13 +7,12 @@ import { getFirestore } from "firebase/firestore";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDL_JbnvxBtLaKcd2VQbn9LyTiUOTP_Lvk",
-  authDomain: "movie4pps.firebaseapp.com",
-  databaseURL: "https://movie4pps-default-rtdb.firebaseio.com",
-  projectId: "movie4pps",
-  storageBucket: "movie4pps.appspot.com",
-  messagingSenderId: "253150873253",
-  appId: "1:253150873253:web:df2319f5bb28d16426ef4c"
+  apiKey: "AIzaSyDjON1uMP6wcZicCp5cz8ykbCMmYGi4TmM",
+  authDomain: "chatsocial-d3911.firebaseapp.com",
+  projectId: "chatsocial-d3911",
+  storageBucket: "chatsocial-d3911.appspot.com",
+  messagingSenderId: "352714894467",
+  appId: "1:352714894467:web:a4b8a0e73e7d6e5acb7fb6"
 };
 
 const app = initializeApp(firebaseConfig);
